@@ -12,6 +12,7 @@ import android.support.v8.renderscript.Element;
 import android.support.v8.renderscript.RenderScript;
 import android.support.v8.renderscript.ScriptIntrinsicBlur;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.RelativeLayout;
@@ -222,7 +223,9 @@ public class GlassView extends RelativeLayout {
         mParentViewDrawn = true;
 
         drawParentToBitmap(parent);
+        long start = System.nanoTime();
         applyBlur();
+        Log.d(TAG, "BlurTime(ms):" + (System.nanoTime() - start) / 1000000);
 
         canvas.drawBitmap(mBlurredBitmap, null, mDestRect, null);
         super.draw(canvas);
